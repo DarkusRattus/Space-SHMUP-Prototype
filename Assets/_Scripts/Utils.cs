@@ -46,4 +46,48 @@ public class Utils : MonoBehaviour {
 		return b;
 	}
 
+	// Make a static read-only public property camBounds
+	static public Bounds camBounds {
+		get {
+			// If _camBounds hasn't been set yet
+			if (_camBounds.size == Vector3.zero) {
+				// SetCameraBounds using the default camera
+				SetCameraBounds ();
+			}
+			return (_camBounds);
+		}
+	}
+
+	// This is a private static field that camBounds uses
+	static private Bounds _camBounds;
+
+	// This function is used by camBounds to set _camBouds and can also be called directly
+	public static void SetCameraBounds(Camera cam = null){
+		// If no Camera was passed in, use the Main Camera
+		if (cam == null)
+			cam = Camera.main;
+		// This makes a couple important assumptions about the camera!:
+		// 1. The camera is Orthographic
+		// 2. The camera is at a rotation of R:[0,0,0]
+
+		// Make Vector3s at the topLeft and bottomRight of the Screen coords
+		Vector3 topLeft = new Vector3 (0, 0, 0);
+		Vector3 bottomRight = new Vector3 (Screen.width, Screen.height, 0);
+
+		// Convert these to world coordinates
+		Vector3 boundTLN = cam.ScreenToWorldPoint (topLeft);
+		Vector3 boundBRF = cam.ScreenToWorldPoint (bottomRight);
+
+		// Adjust their zs to be at the near and far Camera clipping positions
+		boundTLN.z += cam.nearClipPlane;
+		boundBRF.z += cam.farClipPlane;
+
+		// Find the center of the Bounds
+		Vector3 center = (boundBRF + boundTLN) / 2f;
+		_camBounds = new Bounds (center, Vector3.zero);
+		// Expand _camBounds to encapsulate the extents,
+		_camBounds.Encapsulate (boundTLN);
+		_camBounds.Encapsulate (boundBRF);
+	}
+
 }
