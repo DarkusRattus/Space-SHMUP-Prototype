@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+ 
 public class Hero : MonoBehaviour {
 
 	static public Hero S; // Singleton
@@ -15,8 +15,11 @@ public class Hero : MonoBehaviour {
 
 	public bool ________________;
 
+	public Bounds bounds;
+
 	void Awake(){
 		S = this; // Set the singleton
+		bounds = Utils.CombineBoundsOfChildren (this.gameObject);
 	}
 	
 	// Update is called once per frame
