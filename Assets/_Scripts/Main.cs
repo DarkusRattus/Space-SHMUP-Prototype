@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic; // Required to use Lists or Directories
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
@@ -41,13 +42,17 @@ public class Main : MonoBehaviour {
         Invoke("SpawnEnemy", enemySpawnRate);
 
     }
+    
+    public void DelayedRestart(float delay)
+    {
+        // Invoke the Restart() method in delay seconds
+        Invoke("Restart", delay);
+    }
 
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void Restart()
+    {
+        // Reload _Screne_0 to restart the game
+        SceneManager.LoadScene("__Scene_0");
+    }
+
 }
