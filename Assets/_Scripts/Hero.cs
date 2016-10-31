@@ -11,7 +11,8 @@ public class Hero : MonoBehaviour {
 	public float pitchMult = 30;
 
 	// Ship status information
-	public float shieldLevel = 1;
+    [SerializeField]
+	private float _shieldLevel = 1;
 
 	public bool ________________;
 
@@ -88,4 +89,20 @@ public class Hero : MonoBehaviour {
 
     }
 
+    public float shieldLevel
+    {
+        get
+        {
+            return (_shieldLevel);
+        }
+        set
+        {
+            _shieldLevel = Mathf.Min(value, 4);
+            // If the is going to be set to less than zero
+            if (value < 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
 }
