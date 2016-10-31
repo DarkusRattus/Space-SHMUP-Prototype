@@ -24,7 +24,7 @@ public class Hero : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 		// Pull in infomation from the Input class
 		float xAxis = Input.GetAxis ("Horizontal");
 		float yAxis = Input.GetAxis ("Vertical");
@@ -48,4 +48,44 @@ public class Hero : MonoBehaviour {
 		transform.rotation = Quaternion.Euler (yAxis*pitchMult, xAxis*rollMult, 0);
 
 	}
+
+    // This variable holds a reference to the last triggering GameObject
+    public GameObject lastTriggerGo = null;
+
+    void OnTriggerEnter(Collider other)
+    {
+        // Find tag of other.gameObjet or its parent GameObjects
+        GameObject go = Utils.FindTaggedParent(other.gameObject);
+        // If there is a parent with a tag
+        if(go != null) {
+            // Make sure it's not the same triggering go as last time
+            if (go == lastTriggerGo)
+            {
+                return;
+            }
+            lastTriggerGo = go;
+
+            if (go.tag == "Enemy")
+            {
+                // If the Shield was triggered by an enemy
+                // Decrease the level of the shield by 1
+                shieldLevel--;
+                // Destroy the enemy
+                Destroy(go);
+            }
+            else
+            {
+                print("Triggered: " + go.name);
+            }
+
+        }
+        else
+        {
+            // Otherwise, announce the original other.gameObject
+            print("Triggered: " + other.gameObject.name);
+        }
+
+
+    }
+
 }
