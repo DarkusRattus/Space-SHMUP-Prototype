@@ -70,7 +70,7 @@ public class Weapon : MonoBehaviour {
     public WeaponType type
     {
         get { return (_type);  }
-        set { setType(value);  }
+        set { SetType(value);  }
     }
 
     public void SetType(WeaponType wt)
@@ -88,6 +88,7 @@ public class Weapon : MonoBehaviour {
         def = Main.GetWeaponDefinition(_type);
         collar.GetComponent<Renderer>().material.color = def.color;
         lastShot = 0; // You can always fire immediately after _type is set
+    }
 
     public void Fire()
     {
@@ -112,7 +113,7 @@ public class Weapon : MonoBehaviour {
                 p = MakeProjectile();
                 p.GetComponent<Rigidbody>().velocity = new Vector3(-.2f, 0.9f, 0) * def.velocity;
                 p = MakeProjectile();
-                p.GetComponent<Rigidbody>().velocity = new Vector3(.2f, 0.9f., 0) * def.velocity;
+                p.GetComponent<Rigidbody>().velocity = new Vector3(.2f, 0.9f, 0) * def.velocity;
                 break;
 
         }
@@ -120,7 +121,7 @@ public class Weapon : MonoBehaviour {
 
     public Projectile MakeProjectile()
     {
-`       GameObject go = Instantiate(def.projectilePrefab) as GameObject;
+        GameObject go = Instantiate(def.projectilePrefab) as GameObject;
         if (transform.parent.gameObject.tag == "Hero")
         {
             go.tag = "ProjectileHero";
