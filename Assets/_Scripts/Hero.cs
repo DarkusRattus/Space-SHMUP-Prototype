@@ -150,7 +150,7 @@ public class Hero : MonoBehaviour {
                 
         }
         pu.AbsorbedBy(this.gameObject);
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
     }
 
     Weapon GetEmptyWeaponSlot()
