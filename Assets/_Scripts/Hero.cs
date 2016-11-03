@@ -31,12 +31,16 @@ public class Hero : MonoBehaviour {
 	void Awake(){
 		S = this; // Set the singleton
 		bounds = Utils.CombineBoundsOfChildren (this.gameObject);
-
+	}
+	
+    // Add Start() to resolve race condition
+    void Start()
+    {
         // Reset the weapons to start _Hero with 1 blaster
         ClearWeapons();
         weapons[0].SetType(WeaponType.blaster);
-	}
-	
+    }
+
 	// Update is called once per frame
 	void Update () {
 
