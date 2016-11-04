@@ -14,7 +14,7 @@ public class Parallax : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         panelHt = panels[0].transform.localScale.y;
-        depth = panels[0].transform.localScale.x;
+        depth = panels[0].transform.localScale.z;
 
         // Set initial positions of panels
         panels[0].transform.position = new Vector3(0, 0, depth);

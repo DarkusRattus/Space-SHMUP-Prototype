@@ -80,6 +80,8 @@ public class Utils : MonoBehaviour {
 		// Make Vector3s at the topLeft and bottomRight of the Screen coords
 		Vector3 topLeft = new Vector3 (0, 0, 0);
 		Vector3 bottomRight = new Vector3 (Screen.width, Screen.height, 0);
+        // Debug Code:
+        // print(Screen.width);
 
 		// Convert these to world coordinates
 		Vector3 boundTLN = cam.ScreenToWorldPoint (topLeft);
